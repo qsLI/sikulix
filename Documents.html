@@ -1,0 +1,151 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }
+
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>Documents.sikuli</h2> <a href="Documents.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="kw">import</span> time
+<span class="kw">def</span> init():
+    <span class="str">""" initial state """</span>
+    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="1450617504600.png" />):
+        exit()
+    <span class="skw">click</span>(<img src="1450617512741.png" />)
+    <span class="skw">wait</span>(<img src="1450617981095.png" />)
+    <span class="skw">click</span>(<img src="1450617981095.png" />)
+
+<span class="kw">def</span> backHome():
+    <span class="str">""" back to city select activity """</span>
+    <span class="kw">while</span> <span class="kw">not</span> exists(<img src="1450618092142.png" />):
+         <span class="skw">click</span>(<img src="1450618178686.png" />)
+         <span class="skw">wait</span>(<img src="1450619546749.png" />, <span class="dig">6</span>)
+    statusBar = <span class="skw">find</span>(<img src="1450621142544.png" />).getCenter().offset(<span class="dig">0</span>,-<span class="dig">64</span>)
+    hover(statusBar)
+
+
+<span class="kw">def</span> lottery():
+    <span class="str">""" lottery """</span>
+    <span class="kw">if</span> exists(Pattern(<img src="1450661458586.png" />).similar(<span class="dig">0.91</span>)):
+        <span class="skw">click</span>(Pattern(<img src="1450661458586.png" />).similar(<span class="dig">0.84</span>))
+        <span class="kw">try</span>:
+            <span class="skw">wait</span>(<img src="1450618588432.png" />, <span class="dig">6</span>)
+        <span class="kw">except</span>:
+            backHome()
+            <span class="kw">return</span>
+        <span class="kw">for</span> x <span class="kw">in</span> range(<span class="dig">3</span>):
+            <span class="skw">doubleClick</span>(<img src="1450618588432.png" />)
+            time.<span class="skw">sleep</span>(<span class="dig">8</span>)
+            <span class="skw">doubleClick</span>(<img src="1450618588432.png" />)
+
+
+<span class="kw">def</span> loopCity():
+    <span class="kw">while</span> True:
+        lottery()
+        backHome()
+        <span class="kw">if</span> exists(<img src="1450619672356.png" />):
+            <span class="kw">return</span>
+        <span class="kw">else</span>:
+           <span class="cmt"># slide up
+</span>           <span class="cmt">#wheel(WHEEL_DOWN, 3)
+</span>            statusBar = <span class="skw">find</span>(<img src="1450621142544.png" />).getCenter().offset(<span class="dig">0</span>,-<span class="dig">64</span>)
+            wheel(WHEEL_DOWN, <span class="dig">1</span>)
+            <span class="skw">dragDrop</span>(statusBar, statusBar.offset(Location(<span class="dig">10</span>,-<span class="dig">100</span>)))
+
+<span class="kw">def</span> changeCity(item):
+    <span class="kw">if</span> exists(Pattern(<img src="1450658612825.png" />).similar(<span class="dig">0.80</span>)):
+        <span class="skw">click</span>(Pattern(<img src="1450657885056.png" />).similar(<span class="dig">0.80</span>))
+        <span class="kw">if</span> exists(item):
+            <span class="skw">click</span>(item)
+            <span class="skw">wait</span>(<img src="1450618092142.png" />)
+
+cityList = [
+            Pattern(<img src="1450658042078.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658049729.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658055885.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658060710.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658065534.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658070482.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658101190.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658108132.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658114163.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658119756.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658125427.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658130116.png" />).similar(<span class="dig">0.80</span>),
+            Pattern(<img src="1450658136808.png" />).similar(<span class="dig">0.80</span>),
+        ]
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    init()
+    backHome()
+    <span class="kw">for</span> item <span class="kw">in</span> cityList:
+        changeCity(item)
+        loopCity()
+<span class="skw">click</span>(<img src="1450926366175.png" />)
+</pre>
+</body>
+</html>
